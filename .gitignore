@@ -1,3 +1,6 @@
+.stack-work/
+remotengToSuperputty.cabal
+*~
 dist
 dist-*
 cabal-dev
