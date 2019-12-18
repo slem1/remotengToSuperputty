@@ -9,6 +9,8 @@ type CsvLine = [String]
 
 data Connection = Connection { name :: String, host :: String, login:: String} deriving (Show)
 
+sampleContent = "name;host;login\nzeg33ssh.plop.com (ihm);zeg33ssh.plop.com;Amuro\nzeg32ssh.plop.com (ihm);zeg32ssh.plop.com;Amuro" 
+
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
@@ -26,5 +28,5 @@ mapToConnection [name, host, login] = Connection name host login
 
 parseConnections :: Either ParseError [Connection]
 parseConnections = do 
-    parseResult <- parse parseLines "" "zeg33ssh.plop.com (ihm);zeg33ssh.plop.com;Amuro\nzeg32ssh.plop.com (ihm);zeg32ssh.plop.com;Amuro" 
+    parseResult <- parse (manyTill anyChar newline >> parseLines) "" sampleContent
     return $ mapToConnection <$> parseResult
