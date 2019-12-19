@@ -1,5 +1,6 @@
 module CsvReader
-    ( parseConnections
+    ( parseConnections,
+      readAndPrintConnections
     ) where
 
 import Text.Parsec
@@ -8,9 +9,12 @@ import Control.Monad
 
 type CsvLine = [String]
 
-data Connection = Connection { name :: String, host :: String, login:: String} deriving (Show)
-
-sampleContent = "name;host;login\nzeg33ssh.plop.com (ihm);zeg33ssh.plop.com;Amuro\nzeg32ssh.plop.com (ihm);zeg32ssh.plop.com;Amuro" 
+data Connection = Connection { name :: String, 
+                               description :: String, 
+                               category :: String, 
+                               username :: String, 
+                               hostname :: String
+                               } deriving (Show)
 
 parseCell :: Parser String
 parseCell = many $ noneOf ";\n"
@@ -26,10 +30,15 @@ csvParser =  (manyTill anyChar newline >> parseLines)
 
 mapToConnections :: [CsvLine] -> [Connection]
 mapToConnections xs = mapToConnection <$> xs
-      where mapToConnection [name, host, login] = Connection name host login
+      where mapToConnection (name:_:_:_:description:_:panel:username:_:_:hostname:xs) = Connection name description panel username hostname
 
 parseConnections :: FilePath -> IO (Either ParseError [Connection])
 parseConnections inputFile = do 
     content <- readFile inputFile
     let parsedLines = parse csvParser "" content
     return $ liftM mapToConnections parsedLines 
+
+readAndPrintConnections :: FilePath -> IO ()
+readAndPrintConnections inputFile = do
+    connections <-  parseConnections inputFile
+    print connections
