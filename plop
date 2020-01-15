@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ArrayOfSessionData
+><SessionData SessionId="dev/host_1" SessionName="host_1" Host="localhost" Port="22" Proto="SSH"
+></SessionData
+></ArrayOfSessionData
+>

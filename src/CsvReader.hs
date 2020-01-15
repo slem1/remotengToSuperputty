@@ -29,5 +29,6 @@ mapToConnections xs = mapToConnection <$> xs
 parseConnections :: FilePath -> ExceptT ParseError IO [Connection]
 parseConnections inputFile = ExceptT $ do 
     content <- readFile inputFile
+   -- putStrLn content
     let parsedLines = parse csvParser "" content
     return $ liftM mapToConnections parsedLines 

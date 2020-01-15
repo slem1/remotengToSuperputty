@@ -19,6 +19,13 @@ main = do
                 return $ BSL.writeFile outputFile out
             case result of 
                 Left error -> putStrLn $ show error   
-                _ -> putStrLn "Done!"
+                x -> putStrLn "Done!"
         _ -> error "Usage: app \"inputFile\" \"outputFile\""
+
+--main =     
+--    (runExceptT $ parseConnections "/home/slemoine/dev/workspace/remotengToSuperputty/import.csv") >>= \result -> case result of
+--        Left x -> putStrLn "error"
+--        Right x -> putStrLn $ show x
+    
+
             
