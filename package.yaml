@@ -25,7 +25,6 @@ dependencies:
 - xmlgen 
 - text
 - bytestring
-- transformers
 
 library:
   source-dirs: src

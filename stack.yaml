@@ -44,7 +44,6 @@ extra-deps:
 - xmlgen-0.6.2.2 
 - text-1.2.4.0
 - bytestring-0.10.8.2
-- transformers-0.5.6.2
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
