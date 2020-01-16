@@ -22,11 +22,12 @@ parseLines = parseLine `sepEndBy` (char '\n')
 csvParser :: Parser [CsvLine]
 csvParser =  (manyTill anyChar newline >> parseLines)
 
-mapToConnections :: [CsvLine] -> [Connection]
+mapToConnections :: [CsvLine] -> [Maybe Connection]
 mapToConnections xs = mapToConnection <$> xs
-      where mapToConnection (name:_:_:_:description:_:panel:username:hostname:xs) = Connection name description panel username hostname
+      where mapToConnection (name:_:_:_:description:_:panel:username:hostname:xs) = Just (Connection name description panel username hostname)
+            mapToConnection _ = Nothing
 
-parseConnections :: FilePath -> ExceptT ParseError IO [Connection]
+parseConnections :: FilePath -> ExceptT ParseError IO [Maybe Connection]
 parseConnections inputFile = ExceptT $ do 
     content <- readFile inputFile
    -- putStrLn content

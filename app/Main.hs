@@ -15,7 +15,7 @@ main = do
         [inputFile, outputFile] -> do 
             result <- runExceptT $ parseConnections inputFile                            
             case result of 
-                Left error -> putStrLn $ show error   
+                Left err -> error $ show err
                 Right cnxs -> 
                     let out = renderConnections cnxs in
                     BSL.writeFile outputFile out
