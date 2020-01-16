@@ -6,7 +6,6 @@ import System.Environment
 import Connection
 import qualified Data.ByteString.Lazy as BSL
 import Control.Monad.Trans.Except
-import Text.Parsec
 
 --main :: IO ()
 main = do
